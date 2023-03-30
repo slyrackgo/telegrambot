@@ -1,12 +1,10 @@
 {
   "name": "becosystem",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
-    
   },
   "author": "sLyr@ck",
   "license": "ISC",
@@ -14,9 +12,12 @@
     "express": "^4.18.2",
     "modules": "^0.4.0",
     "nod": "^0.2.0",
-    "node-telegram-bot-api": "^0.61.0"
+    "node-telegram-bot-api": "^0.61.0",
+    "telegraf": "^4.12.2"
   },
   "engines": {
-     "node": ">=5.6.0"
-    }
+    "node": ">=5.6.0"
+  },
+  "keywords": [],
+  "description": ""
 }
