@@ -1,6 +1,10 @@
 var telegramBot = require('node-telegram-bot-api');
 var token = '5940223741:AAFr1CRmw3N7lrvdMSSEuzlpZ-9hwN08wwY';//token of a bot
 var api = new telegramBot(token, { polling: true });
+const axios = require('axios');
+// CoinGecko API endpoint   
+const COINGECKO_API_ENDPOINT = 'https://api.coingecko.com/api/v3/coins/markets';
+
 
 
 
@@ -21,7 +25,7 @@ api.onText(/\/start/, function (msg, match) {
         "Join us today and be part of the future of decentralized technology! "+
         "All commands you can see with /help command" );
 });
-api.onText(/\/Daaps/, function(msg, match){
+api.onText(/\/DApps/, function(msg, match){
     var fromId = msg.from.id;
     api.sendMessage(fromId, "Dapps, or decentralized applications, " +
         "are applications that run on decentralized networks, such as blockchain technology. " +
@@ -33,23 +37,22 @@ api.onText(/\/Daaps/, function(msg, match){
         "and transactions to be recorded for the system you will be designing." +
         "\n 3. Define a contract diagram that specifies the name, data assests, functions and rules for execution " +
         "of functions access to the data.");
-    api.sendMessage(fromId, "Do you want me to send detailed information about Daaps?\n" +
-        "(Y/N)", {
-        reply_markup: {
-            keyboard: [['Yes', 'No']],
-            resize_keyboard: true,
-            one_time_keyboard: true,
-        },
-    });
+    
         api.once('message', (msg) => {
             const fromId = msg.chat.id;
             const response = msg.text.toLowerCase();
             if (response === 'yes') {
-                api.sendMessage(fromId, 'All information is written in the next message\n\n');
-                setTimeout(() => {
+                api.sendMessage(fromId, 'All information is written in the next message👇🏾\n\n').then((message) => {
+                    const messageId = message.message_id;
                     api.sendMessage(fromId, 'https://telegra.ph/There-are-several-websites-where-developers-represented-a-conception-of-a-Daaps-03-30-2')
-                }, "3000");
-            } else if (response === 'no') {
+                        .then(() => {
+                            setTimeout(() => {
+                                api.deleteMessage(fromId, messageId);
+                            }, 3000); // wait for 5 seconds before deleting the message
+                        });
+                });
+            }
+            else if (response === 'no') {
                 api.sendMessage(fromId, 'Alright!');
             } else {
                 api.sendMessage(fromId, 'Invalid response. Please try again.');
@@ -60,7 +63,14 @@ api.onText(/\/Daaps/, function(msg, match){
             api.removeTextListener(promptUser);
 
         });
-    
+    api.sendMessage(fromId, "Do you want me to send detailed information about Daaps?\n" +
+        "(Y/N)", {
+        reply_markup: {
+            keyboard: [['Yes', 'No']],
+            resize_keyboard: true,
+            one_time_keyboard: true,
+        },
+    });
     
 });
 api.onText(/\/web3community/, function(msg, match){
@@ -72,6 +82,37 @@ api.onText(/\/web3community/, function(msg, match){
     "4. https://t.me/cryptoslate"
     );
 });
+
+
+api.onText(/\/marketUpdates/, function (msg, match) {
+    var fromId = msg.from.id;
+
+    // Parameters for CoinGecko API request
+    const params = {
+        vs_currency: 'usd',
+        per_page: 20,
+        page: 1,
+        order: 'market_cap_desc'
+    };
+
+    // Send API request to CoinGecko
+    axios.get(COINGECKO_API_ENDPOINT, { params })
+        .then(response => {
+            // Extract top 20 coins from response
+            const coins = response.data.slice(0, 20);
+            let message = 'Top 20 cryptocurrency coins by market cap:\n';
+            coins.forEach((coin, index) => {
+                message += `${index + 1}. ${coin.name} (${coin.symbol.toUpperCase()}) - $${coin.current_price}\n`;
+            });
+            // Send message with top 20 coins to user
+            api.sendMessage(fromId, message);
+        })
+        .catch(error => {
+            console.log(error);
+            api.sendMessage(fromId, 'Sorry, something went wrong while fetching market data.');
+        });
+});
+
 //Top 20 coins in the market
 //latest news
 //events and trend
