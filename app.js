@@ -9,22 +9,29 @@ const COINGECKO_API_ENDPOINT = 'https://api.coingecko.com/api/v3/coins/markets';
 
 
 //Bot commands
+// help
 api.onText(/\/help/, function (msg, match) {
     var fromId = msg.from.id;
     api.sendMessage(fromId, "This bot has 6 commands:\n" +
         "/DApps\n/DeFi\n/marketUpdates\n/web3community");
 });
+// help
+
+//start
 api.onText(/\/start/, function (msg, match) {
     var fromId = msg.from.id;
     api.sendMessage(fromId, "They call me @blockchainEcosystem_bot. " +
-        "Welcome to our blockchain ecosystem bot!" + 
-        "Stay up-to-date with the latest events and trends in the world of blockchain technology." + 
+        "Welcome to our blockchain ecosystem bot! " + 
+        "Stay up-to-date with the latest events and trends in the world of blockchain technology. " + 
         "Get instant access to real-time market data, " + 
-        "project updates from top 20 industry leaders." + 
+        "project updates from top 20 industry leaders. " + 
         "Whether you're a seasoned blockchain enthusiast or just getting started, our bot has everything you need to stay informed and connected. " + 
         "Join us today and be part of the future of decentralized technology! "+
         "All commands you can see with /help command" );
 });
+//start
+
+//DApps
 api.onText(/\/DApps/, function(msg, match){
     var fromId = msg.from.id;
     api.sendMessage(fromId, "Dapps, or decentralized applications, " +
@@ -42,7 +49,7 @@ api.onText(/\/DApps/, function(msg, match){
             const fromId = msg.chat.id;
             const response = msg.text.toLowerCase();
             if (response === 'yes') {
-                api.sendMessage(fromId, 'All information is written in the next message👇🏾\n\n').then((message) => {
+                api.sendMessage(fromId, 'All information is written here👇🏾\n\n').then((message) => {
                     const messageId = message.message_id;
                     api.sendMessage(fromId, 'https://telegra.ph/There-are-several-websites-where-developers-represented-a-conception-of-a-Daaps-03-30-2')
                         .then(() => {
@@ -64,7 +71,7 @@ api.onText(/\/DApps/, function(msg, match){
 
         });
     api.sendMessage(fromId, "Do you want me to send detailed information about Daaps?\n" +
-        "(Y/N)", {
+        "(Yes/No)", {
         reply_markup: {
             keyboard: [['Yes', 'No']],
             resize_keyboard: true,
@@ -73,6 +80,9 @@ api.onText(/\/DApps/, function(msg, match){
     });
     
 });
+//DApps
+
+//web3community
 api.onText(/\/web3community/, function(msg, match){
     var fromId = msg.from.id;
     api.sendMessage(fromId, "All of the community will be a telgram channels: \n" +
@@ -82,8 +92,9 @@ api.onText(/\/web3community/, function(msg, match){
     "4. https://t.me/cryptoslate"
     );
 });
+//web3community
 
-
+//marketUpdates
 api.onText(/\/marketUpdates/, function (msg, match) {
     var fromId = msg.from.id;
 
@@ -102,7 +113,7 @@ api.onText(/\/marketUpdates/, function (msg, match) {
             const coins = response.data.slice(0, 20);
             let message = 'Top 20 cryptocurrency coins by market cap:\n';
             coins.forEach((coin, index) => {
-                message += `${index + 1}. ${coin.name} (${coin.symbol.toUpperCase()}) - $${coin.current_price}\n`;
+                message += `||  ${index + 1}. ${coin.name} (${coin.symbol.toUpperCase()}) - $${coin.current_price}\n`;
             });
             // Send message with top 20 coins to user
             api.sendMessage(fromId, message);
@@ -112,13 +123,26 @@ api.onText(/\/marketUpdates/, function (msg, match) {
             api.sendMessage(fromId, 'Sorry, something went wrong while fetching market data.');
         });
 });
+//marketUpdates
 
+//DeFi
+api.onText(/\/DeFi/, function(msg, match){
+    var fromId = msg.from.id;
+    api.sendMessage(fromId, "DeFi, or decentralized finance, " + 
+    "refers to a new movement in finance that seeks to create a more open, transparent, and decentralized financial system using blockchain technology." +
+    "The basic idea behind DeFi is to replace traditional financial intermediaries, such as banks and other financial institutions, " +
+    "with decentralized networks of smart contracts that can execute financial transactions without the need for a central authority. \n\n" +
+    "DeFi applications are built on blockchain platforms, such as Ethereum, and enable users to borrow, lend, trade, and invest in a wide range of financial instruments, including cryptocurrencies, stablecoins, " + 
+    "and other digital assets.Some of the key features of DeFi include open access, peer - to - peer transactions, transparency, and non - custodial control over funds.");
+    api.sendMessage(fromId, "Here is the examples of DeFi:👇🏾\n"+
+    "https://telegra.ph/The-examples-of-DeFi-03-31");
+});
+//DeFi
 //Top 20 coins in the market
 //latest news
-//events and trend
+//events and trend  
 //project updates
 //expert insights
-//communications
 
 //Bot commands
 
