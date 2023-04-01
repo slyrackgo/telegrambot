@@ -134,8 +134,12 @@ api.onText(/\/DeFi/, function(msg, match){
     "with decentralized networks of smart contracts that can execute financial transactions without the need for a central authority. \n\n" +
     "DeFi applications are built on blockchain platforms, such as Ethereum, and enable users to borrow, lend, trade, and invest in a wide range of financial instruments, including cryptocurrencies, stablecoins, " + 
     "and other digital assets.Some of the key features of DeFi include open access, peer - to - peer transactions, transparency, and non - custodial control over funds.");
-    api.sendMessage(fromId, "Here is the examples of DeFi:👇🏾\n"+
-    "https://telegra.ph/The-examples-of-DeFi-03-31");
+    var time = function(){
+        api.sendMessage(fromId, "Here is the examples of DeFi:👇🏾\n" +
+            "https://telegra.ph/The-examples-of-DeFi-03-31");
+    }
+    var timeout = setTimeout(time, 3000);
+
 });
 //DeFi
 //Top 20 coins in the market
