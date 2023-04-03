@@ -13,7 +13,7 @@ const COINGECKO_API_ENDPOINT = 'https://api.coingecko.com/api/v3/coins/markets';
 api.onText(/\/help/, function (msg, match) {
     var fromId = msg.from.id;
     api.sendMessage(fromId, "This bot has 6 commands:\n" +
-        "/DApps\n/DeFi\n/marketUpdates\n/web3community");
+        "/dapps\n/defi\n/marketupdates\n/web3community");
 });
 // help
 
@@ -32,7 +32,7 @@ api.onText(/\/start/, function (msg, match) {
 //start
 
 //DApps
-api.onText(/\/DApps/, function(msg, match){
+api.onText(/\/dapps/, function(msg, match){
     var fromId = msg.from.id;
     api.sendMessage(fromId, "Dapps, or decentralized applications, " +
         "are applications that run on decentralized networks, such as blockchain technology. " +
@@ -68,6 +68,14 @@ api.onText(/\/DApps/, function(msg, match){
             }
             // remove the listener to allow the user to enter other commands
             api.removeTextListener(promptUser);
+            api.sendMessage(fromId, "Do you want me to send detailed information about Daaps?\n" +
+                "(Yes/No)", {
+                reply_markup: {
+                    keyboard: [['Yes', 'No']],
+                    resize_keyboard: true,
+                    one_time_keyboard: true,
+                },
+            });
 
         });
     api.sendMessage(fromId, "Do you want me to send detailed information about Daaps?\n" +
@@ -85,17 +93,20 @@ api.onText(/\/DApps/, function(msg, match){
 //web3community
 api.onText(/\/web3community/, function(msg, match){
     var fromId = msg.from.id;
-    api.sendMessage(fromId, "All of the community will be a telgram channels: \n" +
+    api.sendMessage(fromId, "Web 3 community and like-minded group chats: \n" +
     "1. https://t.me/bnbchain\n"+
     "2. https://t.me/blockchain\n"+
     "3. https://t.me/cointelegraph\n"+
-    "4. https://t.me/cryptoslate"
+    "4. https://t.me/cryptoslate\n"+
+    "5. https://discord.gg/bnbchain\n"+
+    "6. https://discord.gg/chainlink\n"+
+    "7. https://discord.gg/polkadot"
     );
 });
 //web3community
 
 //marketUpdates
-api.onText(/\/marketUpdates/, function (msg, match) {
+api.onText(/\/marketupdates/, function (msg, match) {
     var fromId = msg.from.id;
 
     // Parameters for CoinGecko API request
@@ -126,7 +137,7 @@ api.onText(/\/marketUpdates/, function (msg, match) {
 //marketUpdates
 
 //DeFi
-api.onText(/\/DeFi/, function(msg, match){
+api.onText(/\/defi/, function(msg, match){
     var fromId = msg.from.id;
     api.sendMessage(fromId, "DeFi, or decentralized finance, " + 
     "refers to a new movement in finance that seeks to create a more open, transparent, and decentralized financial system using blockchain technology." +
