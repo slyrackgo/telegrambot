@@ -1,18 +1,55 @@
 var telegramBot = require('node-telegram-bot-api');
 var token = '5940223741:AAFr1CRmw3N7lrvdMSSEuzlpZ-9hwN08wwY';//token of a bot
 var api = new telegramBot(token, { polling: true });
+const {Configuration, OpenAIApi} = require('openai');
+const config = new Configuration({
+    apiKey: "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"
+});
+const openai = new OpenAIApi(config);
 const axios = require('axios');
 // CoinGecko API endpoint   
 const COINGECKO_API_ENDPOINT = 'https://api.coingecko.com/api/v3/coins/markets';
+// openai.apiKey = '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'; 
+// const openaiToken = "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";
+
+
+
+
 
 
 
 
 //Bot commands
+//chat
+
+api.on('message', async (msg) => {
+    const chatId = msg.chat.id;
+    
+    // Check if the message contains the word "blockchain"
+    if (msg.text.toLowerCase().includes("blockchain")) {
+      const prompt = msg.text;
+      const completion = await openai.createCompletion({
+        max_tokens: 300,
+        model: 'ada',
+        prompt: prompt,
+        temperature: 1.0,
+      });
+      const response = completion.data.choices[0].text;
+      api.sendMessage(chatId, response);
+    } else {
+      // If the message is not related to blockchain, send a different message
+      api.sendMessage(chatId, "Sorry, I can only answer questions about blockchain.");
+    }
+  });
+  
+
+//chat
+
+// Blockchain ecosystem
 // help
 api.onText(/\/help/, function (msg, match) {
     var fromId = msg.from.id;
-    api.sendMessage(fromId, "This bot has 6 commands:\n" +
+    api.sendMessage(fromId, "This bot has 4 commands:\n" +
         "/dapps\n/defi\n/marketupdates\n/web3community");
 });
 // help
@@ -91,18 +128,27 @@ api.onText(/\/dapps/, function(msg, match){
 //DApps
 
 //web3community
-api.onText(/\/web3community/, function(msg, match){
-    var fromId = msg.from.id;
-    api.sendMessage(fromId, "Web 3 community and like-minded group chats: \n" +
-    "1. https://t.me/bnbchain\n"+
-    "2. https://t.me/blockchain\n"+
-    "3. https://t.me/cointelegraph\n"+
-    "4. https://t.me/cryptoslate\n"+
-    "5. https://discord.gg/bnbchain\n"+
-    "6. https://discord.gg/chainlink\n"+
-    "7. https://discord.gg/polkadot"
-    );
+api.onText(/\/web3community/, function (msg, match) {
+    const fromId = msg.from.id;
+    const message = `Join the Web 3 community and connect with like-minded individuals in these group chats:
+    
+🔹 https://t.me/bnbchain
+🔹 https://t.me/blockchain
+🔹 https://t.me/cointelegraph
+🔹 https://t.me/cryptoslate
+
+And don't forget to check out these Discord servers:
+
+🔹 <code>https://discord.gg/bnbchain</code>
+🔹 <code>https://discord.gg/chainlink</code>
+🔹 <code>https://discord.gg/polkadot</code>
+
+Join the conversation and stay up-to-date with the latest news and developments in the Web 3 world! 🚀`;
+
+    api.sendMessage(fromId, message, { parse_mode: 'HTML', disable_web_page_preview: true });
 });
+
+
 //web3community
 
 //marketUpdates
@@ -152,8 +198,6 @@ api.onText(/\/defi/, function(msg, match){
     var timeout = setTimeout(time, 3000);
 
 });
-//DeFi
-//Top 20 coins in the market
 //latest news
 //events and trend  
 //project updates
@@ -165,6 +209,7 @@ api.onText(/\/defi/, function(msg, match){
 //conscole output
 console.log("sLyr@ck's bot has started. Start conversation in your Telegram.");
 const readline = require('readline');
+const { Z_FIXED } = require('zlib');
 
 function animateDots() {
     let count = 0;
@@ -183,4 +228,6 @@ function animateDots() {
 
 animateDots();
 
+//git commit -m 'message'
+//
 
