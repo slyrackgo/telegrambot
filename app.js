@@ -9,48 +9,39 @@ const openai = new OpenAIApi(config);
 const axios = require('axios');
 // CoinGecko API endpoint   
 const COINGECKO_API_ENDPOINT = 'https://api.coingecko.com/api/v3/coins/markets';
-// openai.apiKey = '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'; 
 // const openaiToken = "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";
 
-
-
-
-
-
-
-
 //Bot commands
+
 //chat
 
-api.on('message', async (msg) => {
-    const chatId = msg.chat.id;
-    
-    // Check if the message contains the word "blockchain"
-    if (msg.text.toLowerCase().includes("blockchain")) {
-      const prompt = msg.text;
-      const completion = await openai.createCompletion({
-        max_tokens: 300,
-        model: 'ada',
-        prompt: prompt,
-        temperature: 1.0,
-      });
-      const response = completion.data.choices[0].text;
-      api.sendMessage(chatId, response);
-    } else {
-      // If the message is not related to blockchain, send a different message
-      api.sendMessage(chatId, "Sorry, I can only answer questions about blockchain.");
-    }
-  });
+// api.onText(/\/chat +/, async (msg) => {
+//     var fromId = msg.from.id;
+//     // Check if the message contains the word "blockchain"
+//     if (msg.text.toLowerCase().includes("blockchain")) {
+//       const prompt = msg.text;
+//       const completion = await openai.createCompletion({
+//         max_tokens: 150,
+//         model: 'ada',
+//         prompt: prompt,
+//         temperature: 1.0,
+//       });
+//       const response = completion.data.choices[0].text;
+//       api.sendMessage(fromId, response);
+//     } else {
+//       // If the message is not related to blockchain, send a different message
+//       api.sendMessage(fromId, "Sorry, I can only answer questions about blockchain.");
+//     }
+//   });
   
 
 //chat
 
-// Blockchain ecosystem
 // help
 api.onText(/\/help/, function (msg, match) {
     var fromId = msg.from.id;
-    api.sendMessage(fromId, "This bot has 4 commands:\n" +
-        "/dapps\n/defi\n/marketupdates\n/web3community");
+    api.sendMessage(fromId, "This bot has 5 commands:\n" +
+        "/dapps\n/defi\n/marketupdates\n/web3community\n/help");
 });
 // help
 
@@ -105,14 +96,6 @@ api.onText(/\/dapps/, function(msg, match){
             }
             // remove the listener to allow the user to enter other commands
             api.removeTextListener(promptUser);
-            api.sendMessage(fromId, "Do you want me to send detailed information about Daaps?\n" +
-                "(Yes/No)", {
-                reply_markup: {
-                    keyboard: [['Yes', 'No']],
-                    resize_keyboard: true,
-                    one_time_keyboard: true,
-                },
-            });
 
         });
     api.sendMessage(fromId, "Do you want me to send detailed information about Daaps?\n" +
@@ -168,7 +151,7 @@ api.onText(/\/marketupdates/, function (msg, match) {
         .then(response => {
             // Extract top 20 coins from response
             const coins = response.data.slice(0, 20);
-            let message = 'Top 20 cryptocurrency coins by market cap:\n';
+            let message = '🚀Top 20 cryptocurrency coins by market cap:\n';
             coins.forEach((coin, index) => {
                 message += `||  ${index + 1}. ${coin.name} (${coin.symbol.toUpperCase()}) - $${coin.current_price}\n`;
             });
@@ -207,7 +190,7 @@ api.onText(/\/defi/, function(msg, match){
 
 
 //conscole output
-console.log("sLyr@ck's bot has started. Start conversation in your Telegram.");
+console.log("sLyr@ck's bot has started.©️ Start conversation in your Telegram.");
 const readline = require('readline');
 const { Z_FIXED } = require('zlib');
 
@@ -226,8 +209,10 @@ function animateDots() {
     }, 500);
 }
 
-animateDots();
+animateDots();  
 
+//git add .
 //git commit -m 'message'
-//
+//git push -u origin master
+
 
