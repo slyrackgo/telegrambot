@@ -4,9 +4,9 @@ This Telegram bot provides updates and news about the blockchain ecosystem, incl
 To use the Blockchain Ecosystem Telegram Bot, simply add the bot to your Telegram account by searching for "@blockchainEcosystem_bot" in the Telegram app and clicking the "Start" button.
 Once you have started the bot, you can use the following commands to interact with it:
 
-- `/DApps`: Get the data and updates about dApps in the blockchain ecosystem.
-- `/DeFi`: Get the data and updates about decentralized finance (DeFi) in the blockchain ecosystem.
-- `/marketUpdates`: Get the latest market updates and analysis for cryptocurrencies and other blockchain assets.
+- `/Dapps`: Get the data and updates about dApps in the blockchain ecosystem.
+- `/Defi`: Get the data and updates about decentralized finance (DeFi) in the blockchain ecosystem.
+- `/marketupdates`: Get the latest market updates and analysis for cryptocurrencies and other blockchain assets.
 - `/web3community`: Get the links to the web3 community and the decentralized web.
 - ## Features
 
