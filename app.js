@@ -41,7 +41,7 @@ const COINGECKO_API_ENDPOINT = 'https://api.coingecko.com/api/v3/coins/markets';
 api.onText(/\/help/, function (msg, match) {
     var fromId = msg.from.id;
     api.sendMessage(fromId, "This bot has 5 commands:\n" +
-        "/dapps\n/defi\n/marketupdates\n/web3community\n/help");
+        "/dapps\n/defi\n/market\n/community\n/help");
 });
 // help
 
@@ -111,7 +111,7 @@ api.onText(/\/dapps/, function(msg, match){
 //DApps
 
 //web3community
-api.onText(/\/web3community/, function (msg, match) {
+api.onText(/\/community/, function (msg, match) {
     const fromId = msg.from.id;
     const message = `Join the Web 3 community and connect with like-minded individuals in these group chats:
     
@@ -135,7 +135,7 @@ Join the conversation and stay up-to-date with the latest news and developments 
 //web3community
 
 //marketUpdates
-api.onText(/\/marketupdates/, function (msg, match) {
+api.onText(/\/market/, function (msg, match) {
     var fromId = msg.from.id;
 
     // Parameters for CoinGecko API request
