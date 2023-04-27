@@ -6,7 +6,7 @@ Once you have started the bot, you can use the following commands to interact wi
 
 - `/dapps`: Get the data and updates about dApps in the blockchain ecosystem.
 - `/defi`: Get the data and updates about decentralized finance (DeFi) in the blockchain ecosystem.
-- `/marketupdates`: Get the latest market updates and analysis for cryptocurrencies and other blockchain assets.
+- `/market`: Get the latest market updates and analysis for cryptocurrencies and other blockchain assets.
 - `/web3community`: Get the links to the web3 community and the decentralized web.
 - ## Features
 
