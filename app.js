@@ -13,37 +13,6 @@ const COINGECKO_API_ENDPOINT = 'https://api.coingecko.com/api/v3/coins/markets';
 
 //Bot commands
 
-//chat
-
-// api.onText(/\/chat +/, async (msg) => {
-//     var fromId = msg.from.id;
-//     // Check if the message contains the word "blockchain"
-//     if (msg.text.toLowerCase().includes("blockchain")) {
-//       const prompt = msg.text;
-//       const completion = await openai.createCompletion({
-//         max_tokens: 150,
-//         model: 'ada',
-//         prompt: prompt,
-//         temperature: 1.0,
-//       });
-//       const response = completion.data.choices[0].text;
-//       api.sendMessage(fromId, response);
-//     } else {
-//       // If the message is not related to blockchain, send a different message
-//       api.sendMessage(fromId, "Sorry, I can only answer questions about blockchain.");
-//     }
-//   });
-  
-
-//chat
-
-// help
-api.onText(/\/help/, function (msg, match) {
-    var fromId = msg.from.id;
-    api.sendMessage(fromId, "This bot has 5 commands:\n" +
-        "/dapps\n/defi\n/market\n/community\n/help");
-});
-// help
 
 //start
 api.onText(/\/start/, function (msg, match) {
@@ -54,8 +23,7 @@ api.onText(/\/start/, function (msg, match) {
         "Get instant access to real-time market data, " + 
         "project updates from top 20 industry leaders. " + 
         "Whether you're a seasoned blockchain enthusiast or just getting started, our bot has everything you need to stay informed and connected. " + 
-        "Join us today and be part of the future of decentralized technology! "+
-        "All commands you can see with /help command" );
+        "Join us today and be part of the future of decentralized technology! ");
 });
 //start
 
@@ -114,24 +82,22 @@ api.onText(/\/dapps/, function(msg, match){
 api.onText(/\/community/, function (msg, match) {
     const fromId = msg.from.id;
     const message = `Join the Web 3 community and connect with like-minded individuals in these group chats:
-    
-🔹 https://t.me/bnbchain
-🔹 https://t.me/blockchain
-🔹 https://t.me/cointelegraph
-🔹 https://t.me/cryptoslate
-
-And don't forget to check out these Discord servers:
-
-🔹 <code>https://discord.gg/bnbchain</code>
-🔹 <code>https://discord.gg/chainlink</code>
-🔹 <code>https://discord.gg/polkadot</code>
-
-Join the conversation and stay up-to-date with the latest news and developments in the Web 3 world! 🚀`;
-
+  
+  🔹 https://t.me/bnbchain
+  🔹 https://t.me/blockchain
+  🔹 https://t.me/cointelegraph
+  🔹 https://t.me/cryptoslate
+  
+  And don't forget to check out these Discord servers:
+  
+  🟣 <a href="https://discord.gg/bnbchain">&#8205;</a><code>https://discord.gg/bnbchain</code>
+  🟣 <a href="https://discord.gg/chainlink">&#8205;</a><code>https://discord.gg/chainlink</code>
+  🟣 <a href="https://discord.gg/polkadot">&#8205;</a><code>https://discord.gg/polkadot</code>
+  
+  Join the conversation and stay up-to-date with the latest news and developments in the Web 3 world! 🚀`;
+  
     api.sendMessage(fromId, message, { parse_mode: 'HTML', disable_web_page_preview: true });
-});
-
-
+  });
 //web3community
 
 //marketUpdates
@@ -190,9 +156,10 @@ api.onText(/\/defi/, function(msg, match){
 
 
 //conscole output
-console.log("sLyr@ck's bot has started.©️ Start conversation in your Telegram.");
+console.log('\x1b[32m ',"sLyr@ck's bot has started.©️ Start conversation in your Telegram.");
 const readline = require('readline');
 const { Z_FIXED } = require('zlib');
+const { query } = require('express');
 
 function animateDots() {
     let count = 0;
