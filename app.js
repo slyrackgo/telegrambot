@@ -78,7 +78,7 @@ api.onText(/\/portfolio/, function (msg) {
     const fromId = msg.from.id;
 
     if (!portfolios[fromId] || Object.keys(portfolios[fromId]).length === 0) {
-        api.sendMessage(fromId, 'You have not entered any assets in your portfolio.',{
+        api.sendMessage(fromId, 'You have not entered any assets in your portfolio!',{
             reply_markup: {
                 keyboard: [['Add Portfolio', 'Watch Portfolio']],
                 resize_keyboard: true,
@@ -89,7 +89,7 @@ api.onText(/\/portfolio/, function (msg) {
     }
 
     const portfolioData = portfolios[fromId];
-    let message = 'Your Portfolio:\n';
+    let message = 'Your Portfolio💼:\n';
 
     Object.entries(portfolioData).forEach(([coinName, coinAmount]) => {
         message += `${coinName}: ${coinAmount}\n`;
@@ -131,7 +131,7 @@ api.onText(/Watch Portfolio/, function (msg) {
     }
 
     const portfolioData = portfolios[fromId];
-    let message = 'Your Portfolio:\n';
+    let message = 'Your Portfolio💼:\n';
 
     Object.entries(portfolioData).forEach(([coinName, coinAmount]) => {
         message += `${coinName}: ${coinAmount}\n`;
