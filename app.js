@@ -1,15 +1,9 @@
 var telegramBot = require('node-telegram-bot-api');
 var token = '5940223741:AAFr1CRmw3N7lrvdMSSEuzlpZ-9hwN08wwY';//token of a bot
 var api = new telegramBot(token, { polling: true });
-const {Configuration, OpenAIApi} = require('openai');
-const config = new Configuration({
-    apiKey: "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"
-});
-const openai = new OpenAIApi(config);
 const axios = require('axios');
 // CoinGecko API endpoint   
 const COINGECKO_API_ENDPOINT = 'https://api.coingecko.com/api/v3/coins/markets';
-// const openaiToken = "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";
 
 //Bot commands
 
@@ -24,6 +18,7 @@ api.onText(/\/start/, function (msg, match) {
         "project updates from top 20 industry leaders. " + 
         "Whether you're a seasoned blockchain enthusiast or just getting started, our bot has everything you need to stay informed and connected. " + 
         "Join us today and be part of the future of decentralized technology! ");
+      
 });
 //start
 
@@ -53,7 +48,7 @@ api.onText(/\/dapps/, function(msg, match){
                                 api.deleteMessage(fromId, messageId);
                             }, 3000); // wait for 5 seconds before deleting the message
                         });
-                });
+                });x
             }
             else if (response === 'no') {
                 api.sendMessage(fromId, 'Alright!');
@@ -77,6 +72,76 @@ api.onText(/\/dapps/, function(msg, match){
     
 });
 //DApps
+//portfolio
+const portfolios = {};
+api.onText(/\/portfolio/, function (msg) {
+    const fromId = msg.from.id;
+
+    if (!portfolios[fromId] || Object.keys(portfolios[fromId]).length === 0) {
+        api.sendMessage(fromId, 'You have not entered any assets in your portfolio.',{
+            reply_markup: {
+                keyboard: [['Add Portfolio']],
+                resize_keyboard: true,
+                one_time_keyboard: true,
+            },
+        });
+        return;
+    }
+
+    const portfolioData = portfolios[fromId];
+    let message = 'Your Portfolio:\n';
+
+    Object.entries(portfolioData).forEach(([coinName, coinAmount]) => {
+        message += `${coinName}: ${coinAmount}\n`;
+    });
+
+    api.sendMessage(fromId, message);
+});
+
+// Add Portfolio button
+api.onText(/Add Portfolio/, function (msg) {
+    const fromId = msg.from.id;
+
+    api.sendMessage(fromId, 'Enter the name of the coin:');
+    api.once('message', (msg) => {
+        const coinName = msg.text;
+
+        api.sendMessage(fromId, 'Enter the amount of coins:');
+        api.once('message', (msg) => {
+            const coinAmount = msg.text;
+
+            if (!portfolios[fromId]) {
+                portfolios[fromId] = {};
+            }
+
+            portfolios[fromId][coinName] = coinAmount;
+
+            api.sendMessage(fromId, 'Asset added to your portfolio.');
+        });
+    });
+});
+
+// Watch Portfolio button
+api.onText(/Watch Portfolio/, function (msg) {
+    const fromId = msg.from.id;
+
+    if (!portfolios[fromId] || Object.keys(portfolios[fromId]).length === 0) {
+        api.sendMessage(fromId, 'You have not entered any assets in your portfolio.');
+        return;
+    }
+
+    const portfolioData = portfolios[fromId];
+    let message = 'Your Portfolio:\n';
+
+    Object.entries(portfolioData).forEach(([coinName, coinAmount]) => {
+        message += `${coinName}: ${coinAmount}\n`;
+    });
+
+    api.sendMessage(fromId, message);
+});
+
+
+//portfolio
 
 //web3community
 api.onText(/\/community/, function (msg, match) {
@@ -147,6 +212,10 @@ api.onText(/\/defi/, function(msg, match){
     var timeout = setTimeout(time, 3000);
 
 });
+
+
+
+
 //latest news
 //events and trend  
 //project updates
@@ -177,9 +246,4 @@ function animateDots() {
 }
 
 animateDots();  
-
-//git add .
-//git commit -m 'message'
-//git push -u origin master
-
 
