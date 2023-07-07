@@ -80,7 +80,7 @@ api.onText(/\/portfolio/, function (msg) {
     if (!portfolios[fromId] || Object.keys(portfolios[fromId]).length === 0) {
         api.sendMessage(fromId, 'You have not entered any assets in your portfolio.',{
             reply_markup: {
-                keyboard: [['Add Portfolio']],
+                keyboard: [['Add Portfolio', 'Watch Portfolio']],
                 resize_keyboard: true,
                 one_time_keyboard: true,
             },
