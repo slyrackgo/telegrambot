@@ -78,9 +78,9 @@ api.onText(/\/portfolio/, function (msg) {
     const fromId = msg.from.id;
 
     if (!portfolios[fromId] || Object.keys(portfolios[fromId]).length === 0) {
-        api.sendMessage(fromId, 'You have not entered any assets in your portfolio!',{
+        api.sendMessage(fromId, 'You have not entered any assets in your portfolio.',{
             reply_markup: {
-                keyboard: [['Add Portfolio', 'Watch Portfolio']],
+                keyboard: [['Add Portfolio', 'Watch Portfolio', 'Remove']],
                 resize_keyboard: true,
                 one_time_keyboard: true,
             },
@@ -89,11 +89,15 @@ api.onText(/\/portfolio/, function (msg) {
     }
 
     const portfolioData = portfolios[fromId];
-    let message = 'Your Portfolio💼:\n';
+    let message = 'Your Portfolio:\n';
 
     Object.entries(portfolioData).forEach(([coinName, coinAmount]) => {
         message += `${coinName}: ${coinAmount}\n`;
     });
+    // Object.entries(portfolioData).forEach(([coin_name, coin_amount]) =>{
+    //     message -= `${coin_name}: ${coin_amount}\n`;
+    // })
+   
 
     api.sendMessage(fromId, message);
 });
@@ -131,7 +135,7 @@ api.onText(/Watch Portfolio/, function (msg) {
     }
 
     const portfolioData = portfolios[fromId];
-    let message = 'Your Portfolio💼:\n';
+    let message = 'Your Portfolio:\n';
 
     Object.entries(portfolioData).forEach(([coinName, coinAmount]) => {
         message += `${coinName}: ${coinAmount}\n`;
@@ -139,10 +143,37 @@ api.onText(/Watch Portfolio/, function (msg) {
 
     api.sendMessage(fromId, message);
 });
-
+api.onText(/Remove/, function(msg){
+    const fromId = msg.from.id;
+    if (!portfolios[fromId] || Object.keys(portfolios[fromId]).length === 0) {
+        api.sendMessage(fromId, 'You have not entered any assets in your portfolio.',{
+            reply_markup: {
+                keyboard: [['Add Portfolio', 'Watch Portfolio', 'Remove']],
+                resize_keyboard: true,
+                one_time_keyboard: true,
+            },
+        });
+        return;
+    }
+    api.sendMessage(fromId, 'Enter the name of the coin you want to remove:');
+    api.once('message', (msg) =>{
+        const coinName = msg.text;
+        api.sendMessage(fromId, 'Enter amount of coins:');
+        api.once('message', (msg) => {
+            const coinAmount = msg.text;
+            if(!portfolios[fromId]){
+                portfolios[fromId] = {};
+            }
+            portfolios[fromId][coinName] -= coinAmount;
+            api.sendMessage(fromId, 'Asset removed from your portfolio.');
+        })
+    })
+    Object.entries(portfolioData).forEach(([coin_name, coin_amount]) =>{
+        message -= `${coin_name}: ${coin_amount}\n`;
+    });
+})
 
 //portfolio
-
 //web3community
 api.onText(/\/community/, function (msg, match) {
     const fromId = msg.from.id;
@@ -246,4 +277,3 @@ function animateDots() {
 }
 
 animateDots();  
-
